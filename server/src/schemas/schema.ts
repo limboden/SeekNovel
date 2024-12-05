@@ -1,4 +1,6 @@
-const { gql } = 'require('apollo-server - express')';
+import { graphql } from "graphql";
+
+const { gql } = graphql;
 
 const typeDefs = gql`
     type Book {
