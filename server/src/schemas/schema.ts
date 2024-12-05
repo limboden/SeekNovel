@@ -1,8 +1,6 @@
-import { graphql } from "graphql";
+import { gql } from "graphql-tag";
 
-const { gql } = graphql;
-
-const typeDefs = gql`
+export const typeDefs = gql`
     type Book {
         bookId: String!
         title: String!
@@ -45,5 +43,3 @@ const typeDefs = gql`
         link: String
     }
 `;
-
-module.exports = typeDefs;
