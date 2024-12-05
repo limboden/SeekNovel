@@ -1,3 +1,6 @@
+import { GraphQLContexts } from '../types/express/types'
+
+
 const books = [];
 
 const resolvers = {
