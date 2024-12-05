@@ -1,21 +1,21 @@
 import express from 'express';
-import path from 'node:path';
-import db from './config/connection.js';
-import routes from './routes/index.js';
+
+const { ApolloServer } = require('apollo-server-express');
+const typeDefs = require('./schema'); // Import your GraphQL schema
+const resolvers = require('./resolvers'); // Import your resolvers
 
 const app = express();
-const PORT = process.env.PORT || 3001;
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-// if we're in production, serve client/build as static assets
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-}
-
-app.use(routes);
-
-db.once('open', () => {
-  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
 });
+
+server.applyMiddleware({ app });
+
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}${server.graphqlPath}`);
+});
+
